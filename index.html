@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게이밍 웹사이트 인트로</title>
+    <style>
+      body {
+        background-color: white; /* 초기 배경 색상 */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        perspective: 1000px; /* 3D 효과를 위한 원근감 설정 */
+        transition: background-color 1s; /* 배경색 전환 효과 */
+      }
+
+      .controls {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .reset-button {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .hexagon {
+        width: 100px;
+        height: 120px; /* 세로로 길게 조정 */
+        background-color: black; /* 육각형 색상 */
+        clip-path: polygon(
+          50% 0%,
+          100% 25%,
+          100% 75%,
+          50% 100%,
+          0% 75%,
+          0% 25%
+        );
+        cursor: pointer;
+        transition: transform 0.6s, opacity 0.6s; /* 애니메이션 속도 조정 */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .leaderboard {
+    display: none; /* 리더보드는 처음에 숨김 */
+    width: 100%;
+    margin-top: 450px; /* 전체적으로 450픽셀 내려오게 설정 */
+    font-size: 16px;
+    color: #333;
+    display: flex; /* flexbox로 수정 */
+    min-width: 00px;
+    max-width: 1900px; /* 전체 리더보드 최대 너비 설정 */
+}
+
+      .leaderboard-left,
+      .leaderboard-right {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .logo {
+        display: none; /* 로고는 처음에 숨김 */
+        width: 400px; /* 로고 크기 조정 (기본 크기 2배) */
+        position: absolute;
+        top: 20%; /* 중앙에서 시작 */
+        left: 50%;
+        transform: translate(-50%, -150px); /* 중앙 정렬, 50픽셀 위에서 시작 */
+        transition: transform 0.6s, opacity 0.6s; /* 애니메이션 속도 조정 */
+        opacity: 0; /* 초기 투명도 */
+      }
+
+      .leaderboard-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* 구분선 스타일 변경 */
+        border-image: linear-gradient(
+            to right,
+            transparent,
+            rgba(255, 255, 255, 0.5),
+            transparent
+          )
+          1; /* 구분선 끝부분 스타일 변경 */
+        opacity: 0; /* 초기 투명도 */
+        transform: translateY(-20px); /* 초기 위치 */
+        transition: opacity 0.5s, transform 0.5s; /* 나타나는 애니메이션 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="controls">
+      <button class="reset-button" id="resetButton">초기화</button>
+    </div>
+    <div class="hexagon" id="hexagon"></div>
+    <img src="1.png" alt="로고" class="logo" id="logo" />
+    <div class="leaderboard" id="leaderboard">
+      <div class="leaderboard-left">
+        <!-- 왼쪽 20명의 명렬표 항목 -->
+        <div class="leaderboard-item">
+          <span>런민기(RUNMINGI) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>정우(Jwooo) </span>
+        </div>
+
+        <div class="leaderboard-item">
+          <span>지수(JISU) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>너굴봉달 </span>
+        </div>
+
+        <div class="leaderboard-item">
+          <span>선정권(Jgwon) </span>
+        </div>
+
+        <div class="leaderboard-item">
+          <span>윈디 </span>
+        </div>
+
+        <div class="leaderboard-item">
+          <span>초이스(Choice) </span>
+        </div>
+
+        <div class="leaderboard-item">
+          <span>와이번(WyvernP) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>KHS </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>시아(XIA) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>제임뚜(James) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>배찌(Bazzi) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>찬혁(HYEOK) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>뿌잉 </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>아샤크 </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>록시(Roxy) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>깡민구(MIN9) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>민서(MIN5EO) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>성수(SeonGSu) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>은후(EunHu)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>대원(DAEWON)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>하리(Hari) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>햄찌(HAMZZI)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>넬리(Nelli)</span>
+        </div>
+
+        <!-- 18개의 추가 명렬표 항목 -->
+      </div>
+      <div class="leaderboard-right">
+        <!-- 오른쪽 20명의 명렬표 항목 -->
+        <div class="leaderboard-item">
+          <span>KIWAN</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>Kay.N</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>EJONG</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>런꼬치</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>곰두지</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>루키영재</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>런필모(RUNPILMO)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>태화</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>마신</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>카시(Kasi)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>램공(RAMGONG)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>위즈원(WIZONE)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>가오리(GAORI)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>베가(VEGA)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>페뇨(PeNyo)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>민재(MINJAE)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>다시마(DASIMA)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>지환(JIHWAN)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>민성</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>생떽쥐(DDeckG)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>영재(Young)</span>
+        </div>
+        <div class="leaderboard-item">
+          <span>키티(Kitty) </span>
+        </div>
+        <div class="leaderboard-item">
+          <span>보호막(HOMAG)</span>
+        </div>
+
+        <!-- 18개의 추가 명렬표 항목 -->
+      </div>
+    </div>
+
+    <script>
+// 배열을 무작위로 섞는 함수
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1)); // 랜덤 인덱스 생성
+        [array[i], array[j]] = [array[j], array[i]]; // 요소 교환
+    }
+    return array; // 섞인 배열 반환
+}
+
+// 명렬표 항목을 랜덤하게 섞는 함수
+function randomizeLeaderboard() {
+    const leaderboardLeft = document.querySelectorAll(".leaderboard-left .leaderboard-item");
+    const leaderboardRight = document.querySelectorAll(".leaderboard-right .leaderboard-item");
+
+    // 왼쪽과 오른쪽 항목 배열 생성
+    const leftItems = Array.from(leaderboardLeft);
+    const rightItems = Array.from(leaderboardRight);
+
+    // 항목 섞기
+    shuffle(leftItems);
+    shuffle(rightItems);
+
+    // DOM에서 항목 순서 변경
+    const leftContainer = document.querySelector(".leaderboard-left");
+    const rightContainer = document.querySelector(".leaderboard-right");
+
+    leftContainer.innerHTML = ""; // 기존 항목 제거
+    rightContainer.innerHTML = ""; // 기존 항목 제거
+
+    leftItems.forEach(item => leftContainer.appendChild(item)); // 섞인 항목 추가
+    rightItems.forEach(item => rightContainer.appendChild(item)); // 섞인 항목 추가
+}
+
+// 배열을 무작위로 섞는 함수
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1)); // 랜덤 인덱스 생성
+        [array[i], array[j]] = [array[j], array[i]]; // 요소 교환
+    }
+    return array; // 섞인 배열 반환
+}
+
+// 명렬표 항목을 랜덤하게 섞는 함수
+function randomizeLeaderboard() {
+    const leaderboardLeft = document.querySelectorAll(".leaderboard-left .leaderboard-item");
+    const leaderboardRight = document.querySelectorAll(".leaderboard-right .leaderboard-item");
+
+    // 왼쪽과 오른쪽 항목 배열 생성
+    const leftItems = Array.from(leaderboardLeft);
+    const rightItems = Array.from(leaderboardRight);
+
+    // 항목 섞기
+    shuffle(leftItems);
+    shuffle(rightItems);
+
+    // DOM에서 항목 순서 변경
+    const leftContainer = document.querySelector(".leaderboard-left");
+    const rightContainer = document.querySelector(".leaderboard-right");
+
+    leftContainer.innerHTML = ""; // 기존 항목 제거
+    rightContainer.innerHTML = ""; // 기존 항목 제거
+
+    leftItems.forEach(item => leftContainer.appendChild(item)); // 섞인 항목 추가
+    rightItems.forEach(item => rightContainer.appendChild(item)); // 섞인 항목 추가
+}
+
+document.getElementById("hexagon").addEventListener("click", function () {
+    this.style.transform = "rotateY(360deg)"; // 정육면체 회전 애니메이션
+    this.style.opacity = 0; // 정육면체 투명도 변경
+    document.body.style.backgroundColor = "black"; // 배경색을 검정으로 변경
+
+    const logo = document.getElementById("logo");
+    logo.style.display = "block"; // 로고 보이기
+    logo.style.opacity = 0; // 초기 투명도 0
+    logo.style.transform = "translate(-50%, -150px)"; // 로고 초기 위치를 위로 설정
+
+    // 로고 나타나는 애니메이션
+    setTimeout(() => {
+        logo.style.opacity = 1; // 로고 투명도 변경
+        logo.style.transform = "translate(-50%, 0)"; // 로고를 아래로 이동
+    }, 600); // 0.6초 후에 실행
+
+    // 랜덤하게 명렬표 항목 섞기
+    randomizeLeaderboard();
+
+    // 명렬표 항목 순차적으로 나타나기
+    const leaderboardItems = document.querySelectorAll(".leaderboard-item");
+    leaderboardItems.forEach((item, index) => {
+        setTimeout(() => {
+            item.style.opacity = 1;
+            item.style.transform = "translateY(0)";
+        }, index * 100 + 400); // 400ms 후에 각 항목이 100ms 간격으로 나타남
+    });
+});
+
+
+      let isReset = false;
+      // 정육면체 클릭 이벤트
+      const hexagon = document.getElementById("hexagon");
+      const logo = document.getElementById("logo");
+      const leaderboard = document.getElementById("leaderboard");
+      const leaderboardItems = document.querySelectorAll(".leaderboard-item");
+
+      function initializeHexagonClick() {
+        hexagon.addEventListener("click", function () {
+          this.style.transition = "transform 0.6s";
+          this.style.transform = "rotateY(360deg)";
+
+          // 로고 보이기
+          logo.style.display = "block";
+          logo.style.opacity = 1; // 로고를 즉시 보이게 설정
+          logo.style.transform = "translate(-50%, -100%)"; // 위에서 시작
+
+          // 로고 드래프트 애니메이션
+          setTimeout(() => {
+            logo.style.transform = "translate(-50%, 0)"; // 아래로 이동
+          }, 600); // 0.6초 후에 애니메이션 실행
+
+          // 로고가 아래로 이동한 후 위로 올라가는 애니메이션
+          setTimeout(() => {
+            logo.style.transform = "translate(-50%, -20px)"; // 약간 위로 올라감
+          }, 1200); // 0.6초 + 0.6초 후에 실행
+
+          // 리더보드 보이기
+          setTimeout(() => {
+            leaderboard.style.display = "flex"; // 리더보드 보이기
+
+            // 명렬표 항목 순차적으로 나타나기
+            leaderboardItems.forEach((item, index) => {
+              setTimeout(() => {
+                item.style.opacity = 1; // 서서히 나타나기
+                item.style.transform = "translateY(0)"; // 원래 위치로 이동
+              }, index * 100 + 200); // 1초 후에 각 항목이 100ms 간격으로 나타남
+            });
+          }, 1800); // 로고 애니메이션이 끝난 후 리더보드 표시
+        });
+      }
+
+      // 초기화(재시작) 버튼 클릭 이벤트
+      document
+        .getElementById("resetButton")
+        .addEventListener("click", function () {
+          // 배경색 초기화
+          document.body.style.backgroundColor = "white";
+
+          // 정육면체 상태 초기화
+          hexagon.style.transition = "none"; // 애니메이션 비활성화
+          hexagon.style.transform = "translate(-50%, -50%)"; // 원래 위치로 복원
+          hexagon.style.opacity = 1; // 정육면체 투명도를 1로 설정
+
+          // 로고 초기화
+          logo.style.display = "none"; // 로고 숨김
+          logo.style.opacity = 0; // 로고 투명도 초기화
+          logo.style.transform = "translate(-50%, -100%)"; // 위에서 시작
+
+          // 리더보드 숨김
+          leaderboard.style.display = "none"; // 리더보드 숨김
+
+          // 리더보드 항목 초기화
+          leaderboardItems.forEach((item) => {
+            item.style.opacity = 0; // 초기 투명도 초기화
+            item.style.transform = "translateY(-20px)"; // 초기 위치 조정
+          });
+
+          // 초기화 후 애니메이션을 위한 시간 지연 제거
+          setTimeout(() => {
+            hexagon.style.transition = ""; // 애니메이션 속도 초기화
+          }, 0);
+        });
+
+      // 초기화(재시작) 시 정육면체 클릭 이벤트를 설정합니다.
+      initializeHexagonClick();
+    </script>
+  </body>
+</html>
